@@ -37,7 +37,7 @@ public class DefaultApiAuthencator implements ApiAuthencator {
     }
 
     public static void main(String[] args) {
-        DefaultApiAuthencator defaultApiAuthencator = new DefaultApiAuthencator();
+        ApiAuthencator defaultApiAuthencator = new DefaultApiAuthencator();
         String originalUrl = "localhost:2181/lsz/user?appId=lsz&timestamp=" + (System.currentTimeMillis() - 2323);
         AuthToken clientAuthToken = AuthToken.generate("localhost:2181/lsz/user?", "lsz1", "LSZZSL", System.currentTimeMillis() - 2323);
         String newUrl = originalUrl + "&token=" + clientAuthToken.getToken();
