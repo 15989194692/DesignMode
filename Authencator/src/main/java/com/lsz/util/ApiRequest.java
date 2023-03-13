@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ApiRequest {
+
     private String originalUrl;
     private String token;
     private String appId;
@@ -21,7 +22,7 @@ public class ApiRequest {
             int i = url.indexOf("?");
             if (i <= 0) {
             }
-            String originalUrl = url.substring(0, i + 1);
+            String originalUrl = url.substring(0, i);
             url = url.substring(i + 1);
 
             Map<String, String> paramMap = new HashMap<String, String>();
@@ -38,6 +39,29 @@ public class ApiRequest {
         } catch (Exception exception) {
             throw new IllegalStateException("fail to transform url : " + url, exception);
         }
+    }
+
+    public String toFullUrlString() {
+        final StringBuilder fullUrlString = new StringBuilder(originalUrl).append("?");
+        fullUrlString
+                .append(Constansts.APP_ID_KEY)
+                .append(Constansts.EQUALS)
+                .append(appId);
+
+        fullUrlString
+                .append(Constansts.AND)
+                .append(Constansts.TIMESTAMP_KEY)
+                .append(Constansts.EQUALS)
+                .append(timestamp);
+
+
+        fullUrlString
+                .append(Constansts.AND)
+                .append(Constansts.AUTH_TOKEN_KEY)
+                .append(Constansts.EQUALS)
+                .append(token);
+
+        return fullUrlString.toString();
     }
 
     private static boolean isOriginalParam(String key) {

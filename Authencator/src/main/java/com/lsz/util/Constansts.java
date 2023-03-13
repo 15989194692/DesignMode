@@ -9,4 +9,8 @@ public interface Constansts {
     String AUTH_TOKEN_KEY = "token";
 
     String TIMESTAMP_KEY = "timestamp";
+
+    String EQUALS = "=";
+
+    String AND = "&";
 }
