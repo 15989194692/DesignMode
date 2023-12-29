@@ -1,12 +1,11 @@
 package com.lsz.factory.demo;
 
 import com.lsz.factory.demo.api.impl.ClassPathXmlApplicationContext;
-
-import java.rmi.NoSuchObjectException;
+import com.lsz.factory.demo.exception.BeansException;
 
 public class Application {
 
-    public static void main(String[] args) throws NoSuchObjectException {
+    public static void main(String[] args) throws BeansException {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("beanConfig.xml");
         Bean bean = (Bean) applicationContext.getBean("bean");
         System.out.println("bean = " + bean);

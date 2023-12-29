@@ -3,8 +3,9 @@ package com.lsz.factory.demo.api.impl;
 import com.lsz.factory.demo.api.ApplicationContext;
 import com.lsz.factory.demo.api.BeanConfig;
 import com.lsz.factory.demo.api.ConfigParser;
+import com.lsz.factory.demo.exception.BeansException;
 import com.lsz.factory.demo.factory.BeansFactory;
-import com.lsz.factory.demo.factory.ConfigParserFactory;
+import com.lsz.factory.demo.factory.SimpleBeansFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,11 +18,11 @@ public class ClassPathXmlApplicationContext implements ApplicationContext {
 
     private static final Logger LOGGER = Logger.getLogger(ClassPathXmlApplicationContext.class.getName());
 
-    private BeansFactory beansFactory;
+    private BeansFactory simpleBeansFactory;
     private ConfigParser configParser;
 
     public ClassPathXmlApplicationContext(String xmlClassPath) {
-        beansFactory = new BeansFactory();
+        simpleBeansFactory = new SimpleBeansFactory();
         configParser = new Dom4jXmlConfigParser();
         loadBeanConfig(xmlClassPath);
     }
@@ -34,7 +35,9 @@ public class ClassPathXmlApplicationContext implements ApplicationContext {
                 throw new RuntimeException("can not find file {" + xmlClassPath + "}");
             }
             final List<BeanConfig> beanConfigs = configParser.parse(inputStream);
-            beansFactory.addBeanConfigs(beanConfigs);
+            for (BeanConfig beanConfig : beanConfigs) {
+                simpleBeansFactory.registerBeanConfig(beanConfig);
+            }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "can not open file {" + xmlClassPath + "}", e);
             throw new RuntimeException("can not open file {" + xmlClassPath + "}", e);
@@ -43,10 +46,8 @@ public class ClassPathXmlApplicationContext implements ApplicationContext {
     }
 
     @Override
-    public Object getBean(String beanId) throws NoSuchObjectException {
-        return beansFactory.getBean(beanId);
+    public Object getBean(String beanId) throws BeansException {
+        return simpleBeansFactory.getBean(beanId);
     }
-
-
 
 }
