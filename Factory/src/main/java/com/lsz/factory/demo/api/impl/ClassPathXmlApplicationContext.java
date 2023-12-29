@@ -22,7 +22,7 @@ public class ClassPathXmlApplicationContext implements ApplicationContext {
 
     public ClassPathXmlApplicationContext(String xmlClassPath) {
         beansFactory = new BeansFactory();
-        configParser = new XmlConfigParser();
+        configParser = new Dom4jXmlConfigParser();
         loadBeanConfig(xmlClassPath);
     }
 

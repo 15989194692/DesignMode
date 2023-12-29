@@ -23,6 +23,7 @@
         <module>Strategy</module>
         <module>Command</module>
         <module>authentication</module>
+        <module>mini-spring</module>
     </modules>
 
     <dependencies>
@@ -83,6 +84,17 @@
         </dependency>
 
     </dependencies>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
     <build>

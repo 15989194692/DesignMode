@@ -8,6 +8,8 @@ public class Bean {
         this.ref = ref;
     }
 
+    public Bean() {}
+
     @Override
     public String toString() {
         return "Bean{" +

@@ -5,8 +5,6 @@ import com.lsz.factory.demo.Ref;
 import com.lsz.factory.demo.api.BeanConfig;
 import com.lsz.factory.demo.api.ConfigParser;
 import com.lsz.factory.demo.api.ConstructorArg;
-//import com.sun.tools.javac.util.Assert;
-
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,12 +38,17 @@ public class XmlConfigParser implements ConfigParser {
     @Override
     public List<BeanConfig> parse(String configText) {
 //        Assert.checkNonNull(configText, "beanConfig text can not be null");
+
+
+
+
         BeanConfig bean = new BeanConfig();
         bean.setClassName(Bean.class.getName());
         bean.setId("bean");
-        ConstructorArg beanConstructorArg = new ConstructorArg();
-        beanConstructorArg.setArg("ref");
-        beanConstructorArg.setRef(true);
+        ConstructorArg beanConstructorArg = new ConstructorArg.ConstructorArgBuilder()
+                .arg("ref")
+                .isRef(true)
+                .build();
         ArrayList<ConstructorArg> constructorArgs = new ArrayList<>();
         constructorArgs.add(beanConstructorArg);
         bean.setConstructorArgs(constructorArgs);
@@ -53,10 +56,11 @@ public class XmlConfigParser implements ConfigParser {
         final BeanConfig ref = new BeanConfig();
         ref.setClassName(Ref.class.getName());
         ref.setId("ref");
-        ConstructorArg refConstructorArg = new ConstructorArg();
-        refConstructorArg.setArg("name");
-        refConstructorArg.setRef(false);
-        refConstructorArg.setType(String.class);
+        ConstructorArg refConstructorArg = new ConstructorArg.ConstructorArgBuilder()
+                .arg("name")
+                .isRef(false)
+                .type(String.class)
+                .build();
         ArrayList<ConstructorArg> refConstructorArgs = new ArrayList<>();
         refConstructorArgs.add(refConstructorArg);
         ref.setConstructorArgs(refConstructorArgs);

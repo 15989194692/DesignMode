@@ -1,1 +1,10 @@
-test
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans>
+    <bean id = "bean" class = "com.lsz.factory.demo.Bean">
+        <property name="name" ref="ref" />
+    </bean>
+
+    <bean id = "ref" class = "com.lsz.factory.demo.Ref">
+        <property name="name" value="测试" />
+    </bean>
+</beans>
